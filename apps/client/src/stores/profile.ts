@@ -26,6 +26,12 @@ export const useProfileStore = defineStore(PROFILE_STORE, {
       } finally {
         this.loadingProfile = false
       }
+    },
+    async logout() {
+      const auth = useFirebase.auth()
+      if (auth) {
+        auth.value.signOut()
+      }
     }
 
   },
