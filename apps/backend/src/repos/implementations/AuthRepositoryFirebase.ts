@@ -9,7 +9,13 @@ import {
 import { IAuthRepository } from '../interfaces/IAuthRepository';
 
 export class AuthRepositoryFirebase implements IAuthRepository {
+
+
   private auth = getAuth(getApp());
+
+  constructor(
+
+  ) { return }
 
   async loginWithEmail(
     email: string,

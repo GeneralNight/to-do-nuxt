@@ -49,3 +49,6 @@ Thumbs.db
 key.json
 .env
 **/.env
+
+apps/backend/spec/swagger.json
+apps/backend/src/routes.ts

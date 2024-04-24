@@ -1,4 +1,4 @@
-import { LoginResponse } from '@libs/models';
+import { LoginResponse, UserProfile } from '@libs/models';
 import { Body, Post, Route, Tags } from 'tsoa';
 import { AuthService } from '../services/AuthService';
 import { defaultErrorHandler } from '../utils/DefaultErrorHandler';
@@ -13,8 +13,8 @@ export class AuthController {
   }
 
   @Post('/register/email')
-  public async register(@Body() data: { email: string; password: string }) {
-    return await this._authService.register(data.email, data.password);
+  public async register(@Body() data: Partial<UserProfile> & { email: string; password: string }) {
+    return await this._authService.register(data);
   }
 
   @Post('/login/email')

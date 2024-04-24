@@ -1,15 +1,19 @@
-import { ApiError, LoginResponse, RegisterResponse, ResponseCode } from '@libs/models';
+import { ApiError, LoginResponse, RegisterResponse, ResponseCode, UserProfile } from '@libs/models';
 import { AuthRepositoryFirebase } from '../repos/implementations/AuthRepositoryFirebase';
+import { ProfileRepositoryFirebase } from '../repos/implementations/ProfileRepositoryFirebase';
 import { IAuthRepository } from '../repos/interfaces/IAuthRepository';
+import { IProfileRepository } from '../repos/interfaces/IProfileRepository';
 import { defaultErrorHandler } from '../utils/DefaultErrorHandler';
 
 
 
 export class AuthService {
   private _authRepo: IAuthRepository;
- 
-  constructor(authRepo?: IAuthRepository) {
+  private _profileRepo: IProfileRepository;
+
+  constructor(authRepo?: IAuthRepository, profileRepo?: IProfileRepository) {
     this._authRepo = authRepo ?? new AuthRepositoryFirebase();
+    this._profileRepo = profileRepo ?? new ProfileRepositoryFirebase();
   }
 
   private _handleError(error: any): any {
@@ -25,15 +29,17 @@ export class AuthService {
       if (!response.uid) {
         throw new ApiError(ResponseCode.OK, 'Invalid credentials or user not found');
       }
-     return response
+      return response
     } catch (err) {
       return this._handleError(err);
     }
   }
 
-  async register(email: string, password: string): Promise<RegisterResponse> {
+  async register(data: Partial<UserProfile> & { email: string; password: string }): Promise<RegisterResponse> {
     try {
-      return this._authRepo.register(email, password);
+      const registerResponse = await this._authRepo.register(data.email, data.password);
+      await this._profileRepo.createProfile(data);
+      return registerResponse
     } catch (err) {
       return this._handleError(err);
     }
