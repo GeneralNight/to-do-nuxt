@@ -18,6 +18,10 @@ export default defineNuxtConfig({
   },
   imports: {
     autoImport: true,
+    // dirs: [
+    //   '**/',
+    //   'composables'
+    // ]
   },
   postcss: {
     plugins: {

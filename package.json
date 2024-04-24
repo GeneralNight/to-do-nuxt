@@ -66,6 +66,7 @@
     "express": "^4.18.1",
     "firebase": "^10.11.0",
     "firebase-admin": "^12.1.0",
+    "ohmyfetch": "^0.4.21",
     "swagger-ui-express": "^5.0.0",
     "tslib": "^2.3.0",
     "tsoa": "^6.2.0",
