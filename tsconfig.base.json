@@ -10,10 +10,14 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
+    "useUnknownInCatchVariables": false,
     "paths": {}
   },
   "exclude": ["node_modules", "tmp"]

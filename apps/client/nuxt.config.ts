@@ -13,14 +13,22 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
     tsConfig: {
-      extends: './tsconfig.app.json',
+      extends: './tsconfig.json',
     },
   },
   imports: {
     autoImport: true,
   },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 
-  css: ['~/assets/css/styles.scss'],
+  css: [
+    '~/assets/css/global.scss'
+  ],
 
   vite: {
     plugins: [nxViteTsPaths()],
