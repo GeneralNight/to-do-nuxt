@@ -6,7 +6,7 @@ const { profile } = storeToRefs(profileStore);
 <template>
   <div class="flex items-center justify-end px-10 py-6 bg-white shadow-md">
     <div class="flex flex-col gap-1 items-end">
-      <span>{{ `Olá, ${profile.name}` }}</span>
+      <span>{{ `Olá, ${profile?.name ?? ''}` }}</span>
       <button
         class="text-red-700 font-semibold text-sm"
         @click="profileStore.logout()"

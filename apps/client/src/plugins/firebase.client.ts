@@ -17,6 +17,7 @@ export default defineNuxtPlugin(({ hook }) => {
     const auth = getAuth(app);
     const pinia = usePinia();
     const profileStore = useProfileStore(pinia);
+    const route = useRoute();
 
     onAuthStateChanged(auth, async (user) => {
       try {
@@ -26,7 +27,9 @@ export default defineNuxtPlugin(({ hook }) => {
         if (user) {
           // auth.signOut()
           await profileStore.loadProfile(user.uid)
-          navigateTo('/dashboard')
+          if (!route.name.includes('dashboard')) {
+            navigateTo('/dashboard')
+          }
         } else {
 
           navigateTo('/')
