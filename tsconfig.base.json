@@ -18,7 +18,10 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "useUnknownInCatchVariables": false,
-    "paths": {}
+    "paths": {
+      "@firebaseKeys": ["key.json"],
+      "@libs/models": ["libs/src/models"],
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

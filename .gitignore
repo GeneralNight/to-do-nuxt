@@ -47,3 +47,5 @@ Thumbs.db
 .cache
 
 key.json
+.env
+**/.env
