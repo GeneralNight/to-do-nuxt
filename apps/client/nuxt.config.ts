@@ -1,5 +1,7 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { defineNuxtConfig } from 'nuxt/config';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -29,11 +31,16 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  alias: {
+    '@libs/models': resolve(dirname(fileURLToPath(import.meta.url)), '../../libs/src/models'),
+  },
   css: [
     '~/assets/css/global.scss'
   ],
-
+  modules: [
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+  ],
   vite: {
     plugins: [nxViteTsPaths()],
   },

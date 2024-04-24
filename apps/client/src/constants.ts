@@ -1,0 +1,2 @@
+export const PROFILE_STORE = 'PROFILE_STORE';
+

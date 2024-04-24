@@ -1,3 +1,4 @@
+import { UserProfile } from '@libs/models';
 import { FetchOptions } from 'ohmyfetch';
 
 export default {
@@ -12,5 +13,8 @@ export default {
   },
   signup(options?: FetchOptions): Promise<void> {
     return this.backendFetch(`auth/register/email`, { method: 'POST', ...options });
+  },
+  getUserProfile(profileId: string, options?: FetchOptions): Promise<UserProfile> {
+    return this.backendFetch(`profile/${profileId}`, { method: 'GET', ...options });
   },
 }

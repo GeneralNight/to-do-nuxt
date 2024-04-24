@@ -15,11 +15,17 @@ export default defineNuxtPlugin(({ hook }) => {
     } as FirebaseOptions
     const app = initializeApp(options);
     const auth = getAuth(app);
+    const pinia = usePinia();
+    const profileStore = useProfileStore(pinia);
 
     onAuthStateChanged(auth, async (user) => {
       try {
+
+
         useFirebase.user().value = user;
         if (user) {
+          // auth.signOut()
+          await profileStore.loadProfile(user.uid)
           navigateTo('/dashboard')
         } else {
 

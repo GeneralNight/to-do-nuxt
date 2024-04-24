@@ -25,7 +25,11 @@ export class ProfileRepositoryFirebase implements IProfileRepository {
     }
 
     await doc.create(finalData);
+  }
 
+  async getProfile(profileId: string): Promise<UserProfile> {
 
+    const profile = await this.coll.doc(profileId).get()
+    return UserProfile.fromFirestore(profile)
   }
 }

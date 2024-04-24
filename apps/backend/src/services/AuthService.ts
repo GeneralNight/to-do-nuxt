@@ -38,6 +38,7 @@ export class AuthService {
   async register(data: Partial<UserProfile> & { email: string; password: string }): Promise<RegisterResponse> {
     try {
       const registerResponse = await this._authRepo.register(data.email, data.password);
+      data.id = registerResponse.uid
       await this._profileRepo.createProfile(data);
       return registerResponse
     } catch (err) {

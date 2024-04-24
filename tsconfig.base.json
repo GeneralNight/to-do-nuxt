@@ -20,7 +20,7 @@
     "useUnknownInCatchVariables": false,
     "paths": {
       "@firebaseKeys": ["key.json"],
-      "@libs/models": ["libs/src/models"],
+      "@libs/models": ["libs/src/models/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
