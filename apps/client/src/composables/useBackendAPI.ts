@@ -1,4 +1,4 @@
-import { ToDoDoc, UserProfile } from '@libs/models';
+import { ToDoDoc, ToDoItem, UserProfile } from '@libs/models';
 import { FetchOptions } from 'ohmyfetch';
 
 export default {
@@ -26,7 +26,19 @@ export default {
   getToDo(toDoId: string, options?: FetchOptions): Promise<ToDoDoc> {
     return this.backendFetch(`toDo/${toDoId}`, { method: 'GET', ...options });
   },
-  deleteToDo(toDoId: string, options?: FetchOptions): Promise<ToDoDoc> {
+  deleteToDo(toDoId: string, options?: FetchOptions): Promise<void> {
     return this.backendFetch(`toDo/${toDoId}`, { method: 'DELETE', ...options });
+  },
+  createToDoItem(toDoId: string, data: Partial<ToDoItem>, options?: FetchOptions): Promise<void> {
+    return this.backendFetch(`toDo/${toDoId}`, { method: 'POST', body: data, ...options });
+  },
+  updateToDoItem(toDoId: string, itemId: string, data: Partial<ToDoItem>, options?: FetchOptions): Promise<void> {
+    return this.backendFetch(`toDo/${toDoId}/${itemId}`, { method: 'PUT', body: data, ...options });
+  },
+  getToDoItems(toDoId: string, options?: FetchOptions): Promise<ToDoItem[]> {
+    return this.backendFetch(`toDo/${toDoId}/items`, { method: 'GET', ...options });
+  },
+  deleteToDoItem(toDoId: string, itemId: string, options?: FetchOptions): Promise<void> {
+    return this.backendFetch(`toDo/${toDoId}/${itemId}`, { method: 'DELETE', ...options });
   },
 }

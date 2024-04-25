@@ -27,7 +27,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ToDoItem": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updatedAt":{"dataType":"datetime","required":true},"createdAt":{"dataType":"datetime","required":true},"checked":{"dataType":"string","required":true},"body":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updatedAt":{"dataType":"datetime","required":true},"createdAt":{"dataType":"datetime","required":true},"checked":{"dataType":"boolean","required":true},"body":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ToDoDoc": {
@@ -46,6 +46,11 @@ const models: TsoaRoute.Models = {
     "Partial_ToDoDoc_": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"any"},"ownerId":{"dataType":"any"},"title":{"dataType":"any"},"createdAt":{"dataType":"any"},"updatedAt":{"dataType":"any"},"items":{"dataType":"any"}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Partial_ToDoItem_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"string"},"body":{"dataType":"string"},"checked":{"dataType":"boolean"},"createdAt":{"dataType":"datetime"},"updatedAt":{"dataType":"datetime"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UserProfile": {
@@ -191,6 +196,130 @@ export function RegisterRoutes(app: Router) {
 
               templateService.apiHandler({
                 methodName: 'deleteToDo',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/toDo/:toDoId/items',
+            ...(fetchMiddlewares<RequestHandler>(ToDoController)),
+            ...(fetchMiddlewares<RequestHandler>(ToDoController.prototype.getToDoItems)),
+
+            function ToDoController_getToDoItems(request: ExRequest, response: ExResponse, next: any) {
+            const args: Record<string, TsoaRoute.ParameterSchema> = {
+                    toDoId: {"in":"path","name":"toDoId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args, request, response });
+
+                const controller = new ToDoController();
+
+              templateService.apiHandler({
+                methodName: 'getToDoItems',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/toDo/:toDoId',
+            ...(fetchMiddlewares<RequestHandler>(ToDoController)),
+            ...(fetchMiddlewares<RequestHandler>(ToDoController.prototype.createToDoItem)),
+
+            function ToDoController_createToDoItem(request: ExRequest, response: ExResponse, next: any) {
+            const args: Record<string, TsoaRoute.ParameterSchema> = {
+                    toDoId: {"in":"path","name":"toDoId","required":true,"dataType":"string"},
+                    data: {"in":"body","name":"data","required":true,"ref":"Partial_ToDoItem_"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args, request, response });
+
+                const controller = new ToDoController();
+
+              templateService.apiHandler({
+                methodName: 'createToDoItem',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.delete('/toDo/:toDoId/:itemId',
+            ...(fetchMiddlewares<RequestHandler>(ToDoController)),
+            ...(fetchMiddlewares<RequestHandler>(ToDoController.prototype.deleteToDoItem)),
+
+            function ToDoController_deleteToDoItem(request: ExRequest, response: ExResponse, next: any) {
+            const args: Record<string, TsoaRoute.ParameterSchema> = {
+                    toDoId: {"in":"path","name":"toDoId","required":true,"dataType":"string"},
+                    itemId: {"in":"path","name":"itemId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args, request, response });
+
+                const controller = new ToDoController();
+
+              templateService.apiHandler({
+                methodName: 'deleteToDoItem',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/toDo/:toDoId/:itemId',
+            ...(fetchMiddlewares<RequestHandler>(ToDoController)),
+            ...(fetchMiddlewares<RequestHandler>(ToDoController.prototype.updateToDoItem)),
+
+            function ToDoController_updateToDoItem(request: ExRequest, response: ExResponse, next: any) {
+            const args: Record<string, TsoaRoute.ParameterSchema> = {
+                    toDoId: {"in":"path","name":"toDoId","required":true,"dataType":"string"},
+                    itemId: {"in":"path","name":"itemId","required":true,"dataType":"string"},
+                    data: {"in":"body","name":"data","required":true,"ref":"Partial_ToDoItem_"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args, request, response });
+
+                const controller = new ToDoController();
+
+              templateService.apiHandler({
+                methodName: 'updateToDoItem',
                 controller,
                 response,
                 next,

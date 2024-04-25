@@ -27,7 +27,7 @@
 						"format": "date-time"
 					},
 					"checked": {
-						"type": "string"
+						"type": "boolean"
 					},
 					"body": {
 						"type": "string"
@@ -90,6 +90,29 @@
 					"createdAt": {},
 					"updatedAt": {},
 					"items": {}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"Partial_ToDoItem_": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"body": {
+						"type": "string"
+					},
+					"checked": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
 				},
 				"type": "object",
 				"description": "Make all properties in T optional"
@@ -272,6 +295,144 @@
 						}
 					}
 				]
+			},
+			"post": {
+				"operationId": "CreateToDoItem",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"toDo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "toDoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_ToDoItem_"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/toDo/{toDoId}/items": {
+			"get": {
+				"operationId": "GetToDoItems",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ToDoItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"toDo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "toDoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/toDo/{toDoId}/{itemId}": {
+			"delete": {
+				"operationId": "DeleteToDoItem",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"toDo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "toDoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "itemId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateToDoItem",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"toDo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "toDoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "itemId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_ToDoItem_"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/profile/{profileId}": {

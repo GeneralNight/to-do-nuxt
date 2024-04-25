@@ -43,8 +43,7 @@ export class ToDoRepositoryFirebase implements IToDoRepository {
   }
 
   async createToDoItem(toDoId: string, data: Partial<ToDoItem>): Promise<void> {
-    const doc = this.coll.doc(toDoId).collection('items').doc()
-    await doc.create(data)
+    await this.coll.doc(toDoId).collection('items').doc().set(data)
   }
 
   async deleteToDoItem(toDoId: string, itemId: string): Promise<void> {
@@ -53,7 +52,7 @@ export class ToDoRepositoryFirebase implements IToDoRepository {
 
   async getToDoItems(toDoId: string): Promise<ToDoItem[]> {
     const doc = await this.coll.doc(toDoId).collection('items').get();
-    return doc.docs as unknown as ToDoItem[]
+    return doc ? doc.docs.map(v => v.data() as ToDoItem) : []
   }
 
   async updateToDoItem(toDoId: string, itemId: string, data: Partial<ToDoItem>): Promise<void> {
