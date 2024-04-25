@@ -27,7 +27,7 @@ export class ToDoController {
     return await this._toDoService.createToDo(data);
   }
 
-  @Delete('')
+  @Delete('{toDoId}')
   public async deleteToDo(@Path() toDoId: string) {
     return await this._toDoService.getToDo(toDoId);
   }
