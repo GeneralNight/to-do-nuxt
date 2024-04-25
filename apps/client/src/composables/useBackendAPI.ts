@@ -1,4 +1,4 @@
-import { UserProfile } from '@libs/models';
+import { ToDoDoc, UserProfile } from '@libs/models';
 import { FetchOptions } from 'ohmyfetch';
 
 export default {
@@ -16,5 +16,17 @@ export default {
   },
   getUserProfile(profileId: string, options?: FetchOptions): Promise<UserProfile> {
     return this.backendFetch(`profile/${profileId}`, { method: 'GET', ...options });
+  },
+  listToDo(options?: FetchOptions): Promise<ToDoDoc[]> {
+    return this.backendFetch(`toDo/`, { method: 'GET', ...options });
+  },
+  createToDo(data: Partial<ToDoDoc>, options?: FetchOptions): Promise<void> {
+    return this.backendFetch(`toDo/`, { method: 'POST', body: data, ...options });
+  },
+  getToDo(toDoId: string, options?: FetchOptions): Promise<ToDoDoc> {
+    return this.backendFetch(`toDo/${toDoId}`, { method: 'GET', ...options });
+  },
+  deleteToDo(toDoId: string, options?: FetchOptions): Promise<ToDoDoc> {
+    return this.backendFetch(`toDo/${toDoId}`, { method: 'DELETE', ...options });
   },
 }
