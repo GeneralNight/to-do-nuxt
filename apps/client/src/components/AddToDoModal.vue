@@ -5,6 +5,7 @@ import useFirebase from '../composables/useFirebase';
 
 const emits = defineEmits<{
   (e: 'close'): void;
+  (e: 'refresh'): void;
 }>();
 
 const addingDoc = ref(false);
@@ -21,6 +22,7 @@ const addDoc = async () => {
       title: docName.value,
     };
     await useBackendAPI.createToDo(data);
+    emits('refresh');
     emits('close');
   } catch (error) {
     errorAddingDoc.value = true;

@@ -30,7 +30,7 @@ export class ToDoService {
     return await this._toDoRepo.createToDo(data)
   }
 
-  async deleteToDO(toDoId: string): Promise<void> {
+  async deleteToDo(toDoId: string): Promise<void> {
     return await this._toDoRepo.deleteToDo(toDoId)
   }
 

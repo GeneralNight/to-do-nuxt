@@ -34,9 +34,7 @@ export class ToDoRepositoryFirebase implements IToDoRepository {
   }
 
   async deleteToDo(toDoId: string): Promise<void> {
-    const doc = this.coll.doc(toDoId);
-
-    await doc.delete()
+    await this.coll.doc(toDoId).delete();
   }
 
   async getToDo(toDoId: string): Promise<ToDoDoc> {
