@@ -29,12 +29,22 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col">
-    <Header />
+    <Header :back="true" />
     <div class="flex flex-col w-full pt-10 px-16 gap-10 items-center">
       <div class="min-w-[300px] max-w-[640px] w-full">
-        <AddToDoItem :to-do-id="toDoId" />
+        <AddToDoItem :to-do-id="toDoId" @refresh="loadItems()" />
       </div>
-      <div class="flex flex-col gap-4 w-full" />
+      <span v-if="!items.length" class="opacity-75"
+        >Nenhum item ainda, adicione o primeiro</span
+      >
+      <div v-if="items.length" class="flex flex-col gap-4 w-full">
+        <ToDoItem
+          v-for="item in items"
+          :item="item"
+          :to-do-id="toDoId"
+          @refresh="loadItems()"
+        />
+      </div>
     </div>
   </div>
 </template>

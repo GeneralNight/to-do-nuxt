@@ -52,10 +52,14 @@ export class ToDoRepositoryFirebase implements IToDoRepository {
 
   async getToDoItems(toDoId: string): Promise<ToDoItem[]> {
     const doc = await this.coll.doc(toDoId).collection('items').get();
-    return doc ? doc.docs.map(v => v.data() as ToDoItem) : []
+    return doc ? doc.docs.map(v => {
+      return { ...v.data(), id: v.id } as ToDoItem
+    }) : []
   }
 
   async updateToDoItem(toDoId: string, itemId: string, data: Partial<ToDoItem>): Promise<void> {
+    delete data.createdAt
+    data.updatedAt = new Date()
     await this.coll.doc(toDoId).collection('items').doc(itemId).set(data);
   }
 
