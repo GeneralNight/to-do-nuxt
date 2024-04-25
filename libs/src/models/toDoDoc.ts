@@ -1,7 +1,7 @@
 export type ToDoItem = {
   id: string;
   body: string;
-  checked: string;
+  checked: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

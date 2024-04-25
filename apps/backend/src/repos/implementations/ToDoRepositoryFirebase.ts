@@ -1,4 +1,4 @@
-import { ToDoDoc } from "@libs/models";
+import { ToDoDoc, ToDoItem } from "@libs/models";
 import { firestore } from "firebase-admin";
 import { TO_DO_COLLECTION } from "../../utils/Constants";
 import { IToDoRepository } from "../interfaces/IToDoRepository";
@@ -42,5 +42,22 @@ export class ToDoRepositoryFirebase implements IToDoRepository {
     return ToDoDoc.fromFirestore(doc)
   }
 
+  async createToDoItem(toDoId: string, data: Partial<ToDoItem>): Promise<void> {
+    const doc = this.coll.doc(toDoId).collection('items').doc()
+    await doc.create(data)
+  }
+
+  async deleteToDoItem(toDoId: string, itemId: string): Promise<void> {
+    await this.coll.doc(toDoId).collection('items').doc(itemId).delete();
+  }
+
+  async getToDoItems(toDoId: string): Promise<ToDoItem[]> {
+    const doc = await this.coll.doc(toDoId).collection('items').get();
+    return doc.docs as unknown as ToDoItem[]
+  }
+
+  async updateToDoItem(toDoId: string, itemId: string, data: Partial<ToDoItem>): Promise<void> {
+    await this.coll.doc(toDoId).collection('items').doc(itemId).set(data);
+  }
 
 }

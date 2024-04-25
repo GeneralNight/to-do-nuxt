@@ -1,5 +1,5 @@
-import { ToDoDoc } from '@libs/models';
-import { Body, Delete, Get, Path, Post, Route, Tags } from 'tsoa';
+import { ToDoDoc, ToDoItem } from '@libs/models';
+import { Body, Delete, Get, Path, Post, Put, Route, Tags } from 'tsoa';
 import { ToDoService } from '../services/ToDoService';
 import { defaultErrorHandler } from '../utils/DefaultErrorHandler';
 
@@ -30,5 +30,25 @@ export class ToDoController {
   @Delete('{toDoId}')
   public async deleteToDo(@Path() toDoId: string) {
     return await this._toDoService.deleteToDo(toDoId);
+  }
+
+  @Get('{toDoId}/items')
+  public async getToDoItems(@Path() toDoId: string) {
+    return await this._toDoService.getToDoItems(toDoId);
+  }
+
+  @Post('{toDoId}')
+  public async createToDoItem(@Path() toDoId: string, @Body() data: Partial<ToDoItem>) {
+    return await this._toDoService.createToDoItem(toDoId, data);
+  }
+
+  @Delete('{toDoId}/{itemId}')
+  public async deleteToDoItem(@Path() toDoId: string, @Path() itemId: string) {
+    return await this._toDoService.deleteToDoItem(toDoId, itemId);
+  }
+
+  @Put('{toDoId}/{itemId}')
+  public async updateToDoItem(@Path() toDoId: string, @Path() itemId: string, @Body() data: Partial<ToDoItem>) {
+    return await this._toDoService.updateToDoItem(toDoId, itemId, data);
   }
 }
